@@ -1,4 +1,4 @@
-targets = 4_4_primeNumber4
+targets = 4_4_primeNumber4 4_5_primeNumber5
 CFLAGS = -O3
 LDFLAGS = -pthread
 
