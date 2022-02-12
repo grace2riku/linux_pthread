@@ -4,6 +4,7 @@
 
 #define MAX_PRIME_NUMBERS 100000
 
+/* 素数の一覧表。nPrimeNumber個が小さい順番に入って行く */
 int primeNumber[MAX_PRIME_NUMBERS];
 int nPrimeNumber;
 /* 素数かどうかを確認済みの最大の数 */
@@ -44,7 +45,7 @@ void generatePrimeNumbers(int n) {
             }
             primeNumber[nPrimeNumber] = i;
             nPrimeNumber++;
-            printf("%d: %d is a prime number\n", nPrimeNumber, i);
+            //printf("%d: %d is a prime number\n", nPrimeNumber, i);
         }
     }
     primeNumberChecked = n;
@@ -60,7 +61,7 @@ int countPrimeNumber(int n) {
     generatePrimeNumbers(n);
     count = 0;
 
-    for (i = 2; i < nPrimeNumber; i++) {
+    for (i = 0; i < nPrimeNumber; i++) {
         if (primeNumber[i] > n)
             break;
         count++;
@@ -84,6 +85,9 @@ int main() {
     int numberList[6] = {1, 10, 100, 1000, 10000, 100000};
     pthread_t threads[6];
     int i;
+
+    nPrimeNumber = 0;
+    primeNumberChecked = 1;
 
     for (i = 0; i < 6; i++) {
         if (pthread_create(&threads[i], NULL, threadFunc, (void*)numberList[i]) != 0) {
