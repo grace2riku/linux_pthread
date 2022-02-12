@@ -1,4 +1,4 @@
-targets = 4_8_fly
+targets = 4_8_fly 4_10_fly2
 CFLAGS = -O3
 LDFLAGS = -pthread -lm
 
