@@ -94,7 +94,7 @@ void FlyMove(Fly* fly){
     if (fly->y < 0) {
         fly->y = 0;
         fly->angle = -fly->angle;
-    } else if (fly->y < 0) {
+    } else if (fly->y > HEIGHT - 1) {
         fly->y = HEIGHT - 1;
         fly->angle = -fly->angle;
     }
