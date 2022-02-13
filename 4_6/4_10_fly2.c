@@ -15,8 +15,6 @@ const char *flyMarkList = "o@*+.#"; /* ハエの描画文字一覧 */
 
 int stopRequest;    /* スレッド終了フラグ */
 
-pthread_mutex_t mutex;
-
 /*
 * ミリ秒単位でスリープする
 */
@@ -102,7 +100,7 @@ void FlyMove(Fly* fly){
     if (fly->y < 0) {
         fly->y = 0;
         fly->angle = -fly->angle;
-    } else if (fly->y < 0) {
+    } else if (fly->y < HEIGHT - 1) {
         fly->y = HEIGHT - 1;
         fly->angle = -fly->angle;
     }
@@ -130,9 +128,7 @@ void* doMove(void* arg) {
 
     while (!stopRequest)
     {
-        pthread_mutex_lock(&mutex);
         FlyMove(fly);
-        pthread_mutex_unlock(&mutex);
         mSleep((int)(1000.0 / fly->speed));
     }
     return NULL;
@@ -180,9 +176,7 @@ void drawScreen(){
 */
 void* doDraw(void* arg) {
     while(!stopRequest) {
-        pthread_mutex_lock(&mutex);
         drawScreen();
-        pthread_mutex_unlock(&mutex);
         mSleep(DRAW_CYCLE);
     }
     return NULL;
@@ -197,7 +191,6 @@ int main(){
 
     /* 初期化 */
     srand((unsigned int)time(NULL));
-    pthread_mutex_init(&mutex, NULL);
     clearScreen();
     for  (i = 0; i < MAX_FLY; i++)
     {
@@ -222,8 +215,6 @@ int main(){
         pthread_join(moveThread[i], NULL);
         FlyDestroy(&flyList[i]);
     }
-
-    pthread_mutex_destroy(&mutex);
 
     return 0;
 }
