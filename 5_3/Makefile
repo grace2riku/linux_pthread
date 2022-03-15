@@ -1,4 +1,4 @@
-targets = 5_3_soloFly2 5_5_condTimeWait
+targets = 5_3_soloFly2 5_5_condTimeWait 5_7_soloFly3
 CFLAGS = -O3
 LDFLAGS = -pthread -lm
 
